@@ -1,0 +1,131 @@
+@use "sass:math";
+
+$lightCyan: hsl(193, 38%, 86%);
+$neonGreen: hsl(150, 100%, 66%);
+$grayishBlue: hsl(217, 19%, 38%);
+$darkGrayishBlue: hsl(217, 19%, 24%);
+$quoteFontSize: 1.75rem;
+
+.advice {
+  position: relative;
+  margin: 1rem;
+  padding: 2.5rem 2rem;
+  background-color: $darkGrayishBlue;
+  font-weight: 800;
+  text-align: center;
+  max-width: 540px;
+  border-radius: .75rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    filter: drop-shadow(15px 35px 35px hsl(222, 27%, 12%));
+    z-index: -1;
+    border-radius: .95rem;
+  }
+
+  .advice__number {
+    text-transform: capitalize;
+    color: $neonGreen;
+    letter-spacing: 3px;
+  }
+
+  .advice__text {
+    margin-top: 2rem;
+    font-size: $quoteFontSize;
+    color: $lightCyan;
+  }
+
+  .divisor-container {
+    margin-top: 2.1rem;
+    margin-bottom: 1.2rem;
+
+    .mobile-divisor {
+      width: 100%;
+      @media screen and (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    .desktop-divisor {
+      width: 100%;
+      display: none;
+      @media screen and (min-width: 768px) {
+        display: inline;
+      }
+    }
+  }
+
+  .new-advice-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    bottom: -1.75rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    transform: translateX(-50%);
+    background-color: $neonGreen;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .35s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 35px $neonGreen;
+    }
+  }
+}
+
+.spinner-container {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  background-color: transparent;
+  margin-left: calc(50% - 100px);
+
+  .loading {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+
+    div {
+      position: absolute;
+      left: calc(50% - 6px);
+      top: 25%;
+      width: 12px;
+      height: 24px;
+      background-color: $neonGreen;
+      border-radius: 6px / 12px;
+      transform-origin: 6px 52px;
+      animation: loading linear 1s infinite;
+    }
+
+    @keyframes loading {
+      0%{
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @for $i from 0 through 12 {
+      div:nth-child(#{$i + 1}) {
+        transform: rotate($i * 30deg);
+        animation-delay: calc(math.div(12 - $i, 12) * -1s);
+        background-color: $neonGreen;
+      }
+    }
+  }
+}

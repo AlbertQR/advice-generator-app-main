@@ -1,0 +1,27 @@
+@if (!isLoading()) {
+  <article class="advice">
+    <h5 class="advice__number">ADVICE #{{ advice().slip.id }}</h5>
+    <p class="advice__text">
+      "{{ advice().slip.advice }}"
+    </p>
+    <div class="divisor-container">
+      <img class="mobile-divisor"
+           src="assets/images/pattern-divider-desktop.svg"
+           alt="mobile-divisor">
+      <img class="desktop-divisor"
+           src="assets/images/pattern-divider-desktop.svg"
+           alt="desktop-divisor">
+    </div>
+    <button class="new-advice-button" (click)="getNewAdvice()">
+      <img src="assets/images/icon-dice.svg" alt="button">
+    </button>
+  </article>
+} @else {
+  <div class="spinner-container">
+    <div class="loading">
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+}
